@@ -1,1 +1,36 @@
+# Tệp: .github/workflows/fe.yml
 
+name: 1. Deploy Frontend (Somee.com)
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'assets/**'
+      - 'index.html'
+
+jobs:
+  web-deploy:
+    name: Deploy FE
+    runs-on: ubuntu-latest
+    steps:
+      - name: 1. Checkout code
+        uses: actions/checkout@v4
+
+      - name: 2. FTP Deploy (assets and index.html)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.0
+        with:
+          # VUI LÒNG THAY THẾ CÁC PLACEHOLDER SAU BẰNG GIÁ TRỊ THẬT:
+          server: ftp://mnmweb.somee.com/www.mnmweb.somee.com
+          username: danhlc
+          password: Danhfa123.
+          remote-dir: /
+          
+          exclude: |
+            api/**
+            .github/**
+            *.git*
+            *.github*
+            *.gitignore
+            **/.git
