@@ -1,1 +1,33 @@
+# Tệp: .github/workflows/be.yml
 
+name: 2. Deploy Backend (InfinityFree)
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'api/**'
+
+jobs:
+  web-deploy:
+    name: Deploy BE
+    runs-on: ubuntu-latest
+    steps:
+      - name: 1. Checkout code
+        uses: actions/checkout@v4
+      
+      - name: 2. FTP Deploy (API folder only)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.0
+        with:
+          # VUI LÒNG THAY THẾ CÁC PLACEHOLDER SAU BẰNG GIÁ TRỊ THẬT:
+          server: ftpupload.net
+          username: if0_40495322
+          password: danhfa123
+          remote-dir: /htdocs/ # Đường dẫn BE trên InfinityFree
+
+          include: |
+            api/**
+          exclude: |
+            *
+            !api/
